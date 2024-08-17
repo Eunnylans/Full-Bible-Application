@@ -8,7 +8,7 @@ import { getChapter, getVerseByVersion } from './Components/API/Api';
 import BookmarkButton from './Components/BookmarkButton/BookmarkButton';
 import NoteTaker from './Components/NoteTaker/NoteTaker';
 import DailyVerse from './components/DailyVerse';
-import './styles.css';
+import './App.css';
 
 function App() {
     const [verseData, setVerseData] = useState(null);
