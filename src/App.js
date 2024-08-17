@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
 import SearchVerse from './Components/SearchVerse/SearchVerse';
 import VerseDisplay from './Components/VerseDisplay/VerseDisplay';
-import { getVerse } from './Components/API/Api';
-import './App.css';  // Import the CSS file
-
+import BookSelector from './Components/BookSelector/BookSelector';
+import ChapterSelector from './Components/ChapterSelector/ChapterSelector';
+import { getChapter } from './api';
+import './styles.css';
 
 function App() {
     const [verseData, setVerseData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [selectedBook, setSelectedBook] = useState('');
+    const [selectedChapter, setSelectedChapter] = useState('');
 
-    const handleSearch = async (verse) => {
+    const handleBookSelect = (book) => {
+        setSelectedBook(book);
+        setSelectedChapter('');
+        setVerseData(null);
+    };
+
+    const handleChapterSelect = async (chapter) => {
+        setSelectedChapter(chapter);
         setLoading(true);
         setError(null);
         try {
-            const data = await getVerse(verse);
+            const data = await getChapter(selectedBook, chapter);
             setVerseData(data);
         } catch (error) {
-            setError('Failed to fetch the verse. Please try again.');
+            setError('Failed to fetch the chapter. Please try again.');
         }
         setLoading(false);
     };
@@ -25,9 +35,11 @@ function App() {
     return (
         <div className="App">
             <h1>Bible Search</h1>
-            <SearchVerse onSearch={handleSearch} />
-            {loading && <p>Loading...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <BookSelector onSelectBook={handleBookSelect} />
+            <ChapterSelector book={selectedBook} onSelectChapter={handleChapterSelect} />
+            <SearchVerse onSearch={handleChapterSelect} />
+            {loading && <p className="loading">Loading...</p>}
+            {error && <p className="error">{error}</p>}
             <VerseDisplay verseData={verseData} />
         </div>
     );
