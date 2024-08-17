@@ -7,6 +7,7 @@ import VersionSelector from './Components/VersionSelector';
 import { getChapter, getVerseByVersion } from './Components/API/Api';
 import BookmarkButton from './Components/BookmarkButton/BookmarkButton';
 import NoteTaker from './Components/NoteTaker/NoteTaker';
+import DailyVerse from './components/DailyVerse';
 import './styles.css';
 
 function App() {
@@ -113,6 +114,8 @@ function App() {
                     />
                 </>
             )}
+            <h2>Daily Verse</h2>
+            <DailyVerse version={selectedVersion} />
         </div>
     );
 }
