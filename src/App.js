@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import SearchVerse from './SearchVerse/SearchVerse';
-import VerseDisplay from './VerseDisplay/VerseDisplay';
-import { getVerse } from './API/Api';
+import SearchVerse from './Components/SearchVerse/SearchVerse';
+import VerseDisplay from './Components/VerseDisplay/VerseDisplay';
+import { getVerse } from './Components/API/Api';
 import './App.css';  // Import the CSS file
 
 
