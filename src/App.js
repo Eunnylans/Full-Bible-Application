@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import SearchVerse from './SearchVerse/SearchVerse';
+import VerseDisplay from './VerseDisplay/VerseDisplay';
+import { getVerse } from './API/Api';
+import './App.css';  // Import the CSS file
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [verseData, setVerseData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const handleSearch = async (verse) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const data = await getVerse(verse);
+            setVerseData(data);
+        } catch (error) {
+            setError('Failed to fetch the verse. Please try again.');
+        }
+        setLoading(false);
+    };
+
+    return (
+        <div className="App">
+            <h1>Bible Search</h1>
+            <SearchVerse onSearch={handleSearch} />
+            {loading && <p>Loading...</p>}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <VerseDisplay verseData={verseData} />
+        </div>
+    );
 }
 
 export default App;
