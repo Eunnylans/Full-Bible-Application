@@ -3,11 +3,11 @@ import SearchVerse from './Components/SearchVerse/SearchVerse';
 import VerseDisplay from './Components/VerseDisplay/VerseDisplay';
 import BookSelector from './Components/BookSelector/BookSelector';
 import ChapterSelector from './Components/ChapterSelector/ChapterSelector';
-import VersionSelector from './Components/VersionSelector';
+import VersionSelector from './Components/VersionSelector/VersionSelector';
 import { getChapter, getVerseByVersion } from './Components/API/Api';
 import BookmarkButton from './Components/BookmarkButton/BookmarkButton';
 import NoteTaker from './Components/NoteTaker/NoteTaker';
-import DailyVerse from './components/DailyVerse';
+import DailyVerse from './Components/DailyVerse/DailyVerse';
 import './App.css';
 
 function App() {
