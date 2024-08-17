@@ -5,6 +5,8 @@ import BookSelector from './Components/BookSelector/BookSelector';
 import ChapterSelector from './Components/ChapterSelector/ChapterSelector';
 import VersionSelector from './Components/VersionSelector';
 import { getChapter, getVerseByVersion } from './Components/API/Api';
+import BookmarkButton from './Components/BookmarkButton/BookmarkButton';
+import NoteTaker from './Components/NoteTaker/NoteTaker';
 import './styles.css';
 
 function App() {
@@ -80,6 +82,18 @@ function App() {
 
     
 
+    // Integrate BookmarkButton & NoteTaker in App.js
+
+    const handleBookmark = (verseData) => {
+        saveBookmark(verseData);
+        alert('Verse bookmarked!');
+    };
+
+    const handleSaveNote = (verseReference, note) => {
+        saveNote(verseReference, note);
+        alert('Note saved!');
+    };
+
     return (
         <div className="App">
             <h1>Bible Search</h1>
@@ -90,6 +104,15 @@ function App() {
             {loading && <p className="loading">Loading...</p>}
             {error && <p className="error">{error}</p>}
             <VerseDisplay verseData={verseData} />
+            {verseData && (
+                <>
+                    <BookmarkButton verseData={verseData} onBookmark={handleBookmark} />
+                    <NoteTaker
+                        verseReference={verseData.reference}
+                        onSaveNote={handleSaveNote}
+                    />
+                </>
+            )}
         </div>
     );
 }
